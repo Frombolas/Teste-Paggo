@@ -12,8 +12,9 @@ export class AuthController{
     ) {}
 
     @Post('login')
-    async login(@Body(){email,password}:AuthLoginDto){
-        return this.authService.login(email,password);
+    async login(@Body() { email, password }: AuthLoginDto) {
+        const user = await this.authService.login(email, password);
+        return this.authService.generateToken(user);
     }
 
     @Post('register')
@@ -21,5 +22,10 @@ export class AuthController{
 
         return this.authService.register(body);
 
+    }
+
+    @Post('me')
+    async me(@Body() body: { token: string }) {
+        return this.authService.validateToken(body.token);
     }
 }
