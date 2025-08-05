@@ -18,6 +18,7 @@
     "@nestjs/mapped-types": "^2.1.0",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.1.5",
+    "@types/cors": "^2.8.19",
     "@types/tesseract.js": "^2.0.0",
     "axios": "^1.11.0",
     "bcrypt": "^6.0.0",
@@ -38,6 +39,7 @@
     "@types/multer": "^2.0.0",
     "@types/node": "^24.1.0",
     "@types/passport-jwt": "^4.0.1",
+    "cors": "^2.8.5",
     "openai": "^5.11.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
