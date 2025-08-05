@@ -21,13 +21,15 @@ model User {
 }
 
 model Document {
-  id        String   @id @default(cuid())
-  filename  String
-  mimetype  String
-  path      String
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
+  id         String   @id @default(cuid())
+  filename   String
+  ocrText    String?
+  iaResponse String?
+  mimetype   String
+  path       String
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  createdAt  DateTime @default(now())
 
   @@map("documents")
 }
