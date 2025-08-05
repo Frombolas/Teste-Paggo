@@ -1,9 +1,60 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
+const styles: { [key: string]: React.CSSProperties } = {
+  container: {
+    maxWidth: 400,
+    margin: '50px auto',
+    padding: 20,
+    borderRadius: 8,
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    backgroundColor: '#fff',
+    textAlign: 'center' as React.CSSProperties['textAlign'],
+  },
+  title: {
+    marginBottom: 30,
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  input: {
+    padding: 10,
+    marginBottom: 15,
+    borderRadius: 4,
+    border: '1px solid #ccc',
+    fontSize: 16,
+  },
+  error: {
+    color: 'red',
+    marginBottom: 15,
+  },
+  buttonGroup: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: 10,
+  },
+  primaryButton: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#0070f3',
+    color: '#fff',
+    border: 'none',
+    borderRadius: 4,
+    cursor: 'pointer',
+  },
+  secondaryButton: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#eaeaea',
+    border: 'none',
+    borderRadius: 4,
+    cursor: 'pointer',
+  },
+};
+
 export default function RegisterPage() {
   const router = useRouter();
-
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,9 +67,7 @@ export default function RegisterPage() {
     try {
       const res = await fetch('http://localhost:3000/auth/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password }),
       });
 
@@ -29,18 +78,13 @@ export default function RegisterPage() {
       }
 
       const data = await res.json();
-
-      // Supondo que o token vem assim { accessToken: "..." }
-      const token = data.accessToken || data.token || null;
+      const token = data.accessToken || data.token;
       if (!token) {
         setError('Token não recebido');
         return;
       }
 
-      // Salva token no localStorage para usar depois
       localStorage.setItem('token', token);
-
-      // Redireciona para dashboard ou home
       router.push('/dashboard');
     } catch (err) {
       setError('Erro inesperado no registro.');
@@ -49,50 +93,46 @@ export default function RegisterPage() {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: 'auto', paddingTop: 50 }}>
-      <h1>Registrar</h1>
-
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Nome:</label>
+    <div style={styles.container}>
+      <h1 style={styles.title}>Criar Conta</h1>
+      <form onSubmit={handleSubmit} style={styles.form}>
         <input
           id="name"
           type="text"
+          placeholder="Nome"
           required
           value={name}
           onChange={e => setName(e.target.value)}
-          style={{ width: '100%', marginBottom: 10, padding: 8 }}
+          style={styles.input}
         />
-
-        <label htmlFor="email">Email:</label>
         <input
           id="email"
           type="email"
+          placeholder="Email"
           required
           value={email}
           onChange={e => setEmail(e.target.value)}
-          style={{ width: '100%', marginBottom: 10, padding: 8 }}
+          style={styles.input}
         />
-
-        <label htmlFor="password">Senha:</label>
         <input
           id="password"
           type="password"
+          placeholder="Senha"
           required
           value={password}
           onChange={e => setPassword(e.target.value)}
-          style={{ width: '100%', marginBottom: 10, padding: 8 }}
+          style={styles.input}
         />
 
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p style={styles.error}>{error}</p>}
 
-        <button type="submit" style={{ padding: 10, width: '40%' }}>
-          Registrar
-        </button>
-        <button type="button" style={{ padding: 10, width: '40%', marginLeft: 10}} onClick={() => router.push('/login')}>
-          Já estou cadastrado
-        </button>
+        <div style={styles.buttonGroup}>
+          <button type="submit" style={styles.primaryButton}>Registrar</button>
+          <button type="button" style={styles.secondaryButton} onClick={() => router.push('/login')}>
+            Já tenho conta
+          </button>
+        </div>
       </form>
     </div>
   );
 }
-

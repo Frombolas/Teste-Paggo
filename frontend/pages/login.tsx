@@ -35,10 +35,7 @@ export default function LoginPage() {
         return;
       }
 
-      // Salva token
       localStorage.setItem('token', token);
-
-      // Redireciona para dashboard
       router.push('/dashboard');
     } catch (err) {
       setError('Erro inesperado no login.');
@@ -47,40 +44,102 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: 'auto', paddingTop: 50 }}>
-      <h1>Login</h1>
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#f3f4f6',
+    }}>
+      <div style={{
+        width: '100%',
+        maxWidth: 400,
+        backgroundColor: '#fff',
+        padding: '30px',
+        borderRadius: '8px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+      }}>
+        <h2 style={{ textAlign: 'center', marginBottom: 30 }}>Login</h2>
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="email"
-          required
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          style={{ width: '100%', marginBottom: 10, padding: 8 }}
-        />
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="email" style={{ fontWeight: 500 }}>Email:</label>
+          <input
+            id="email"
+            type="email"
+            required
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            style={{
+              width: '100%',
+              marginBottom: 15,
+              marginTop: 5,
+              padding: 10,
+              borderRadius: 5,
+              border: '1px solid #ccc',
+              fontSize: 14,
+            }}
+          />
 
-        <label htmlFor="password">Senha:</label>
-        <input
-          id="password"
-          type="password"
-          required
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          style={{ width: '100%', marginBottom: 10, padding: 8 }}
-        />
+          <label htmlFor="password" style={{ fontWeight: 500 }}>Senha:</label>
+          <input
+            id="password"
+            type="password"
+            required
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            style={{
+              width: '100%',
+              marginBottom: 15,
+              marginTop: 5,
+              padding: 10,
+              borderRadius: 5,
+              border: '1px solid #ccc',
+              fontSize: 14,
+            }}
+          />
 
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+          {error && <p style={{ color: 'red', marginBottom: 10 }}>{error}</p>}
 
-        <button type="submit" style={{ padding: 10, width: '40%' }}>
-          Entrar
-        </button>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            gap: 10,
+          }}>
+            <button
+              type="submit"
+              style={{
+                flex: 1,
+                padding: 10,
+                backgroundColor: '#4f46e5',
+                color: '#fff',
+                border: 'none',
+                borderRadius: 5,
+                cursor: 'pointer',
+                fontWeight: 600,
+              }}
+            >
+              Entrar
+            </button>
 
-        <button type="button" style={{ padding: 10, width: '40%', marginLeft: '10%' }} onClick={() => router.push('/register')}>
-          Cadastrar
-        </button>
-      </form>
+            <button
+              type="button"
+              onClick={() => router.push('/register')}
+              style={{
+                flex: 1,
+                padding: 10,
+                backgroundColor: '#e5e7eb',
+                color: '#111827',
+                border: 'none',
+                borderRadius: 5,
+                cursor: 'pointer',
+                fontWeight: 600,
+              }}
+            >
+              Cadastrar
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
