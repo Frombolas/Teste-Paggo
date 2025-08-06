@@ -29,4 +29,4 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) or [http://localhost:3001](http://localhost:3001)  with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) 
